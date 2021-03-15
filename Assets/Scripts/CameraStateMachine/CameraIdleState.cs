@@ -10,7 +10,18 @@ public class CameraIdleState : CameraMoveBase
         {
             pc.pastPlayer_1.SetActive(true);
         }
-        pc.pastTransform_array = new Transform[1000];
+        else
+        {
+            pc.pastPlayer_1.SetActive(false);
+        }
+        if(pc.pastTransform_2.Count > 0)
+        {
+            pc.pastPlayer_2.SetActive(true);
+        }
+        else
+        {
+            pc.pastPlayer_2.SetActive(false);
+        }
     }
 
     public override void LeaveState(PlayerControll pc)
@@ -21,6 +32,20 @@ public class CameraIdleState : CameraMoveBase
     {
         pc.countDown -= Time.deltaTime * 2;
 
+        PlayerMovement(pc);
+
+        MovePastBots(pc);
+
+        TimeUpReset(pc);
+    }
+    public override void LastUpdate(PlayerControll pc)
+    {
+        Vector3 temp = pc.transform.position;
+        pc.pastTransform_Temp.Add(temp);
+    }
+
+    private void PlayerMovement(PlayerControll pc)
+    {
         if (Input.GetKey(KeyCode.W))
             pc.transform.position += Vector3.up * Time.deltaTime * pc.speed;
         if (Input.GetKey(KeyCode.S))
@@ -37,37 +62,41 @@ public class CameraIdleState : CameraMoveBase
             pc.transform.position = new Vector3(pc.transform.position.x, Camera.main.transform.position.y - 5, pc.transform.position.z);
         if (pc.transform.position.y >= Camera.main.transform.position.y + 5)
             pc.transform.position = new Vector3(pc.transform.position.x, Camera.main.transform.position.y + 5, pc.transform.position.z);
+    }
 
-
-        if (pc.resetNum % 2 == 0)
+    private void TimeUpReset(PlayerControll pc)
+    {
+        if (pc.countDown <= 0)
         {
-            pc.pastTransform_1.Add(pc.transform);
-            pc.pastTransform_array.SetValue(pc.transform, Mathf.RoundToInt((60 - pc.countDown) * (1000/ 60)));
+            if (pc.resetNum % 2 == 0)
+            {
+                pc.pastTransform_1.Clear();
+                pc.pastTransform_1 = pc.pastTransform_Temp;
+            }
+            else if (pc.resetNum % 2 != 0)
+            {
+                pc.pastTransform_2.Clear();
+                pc.pastTransform_2 = pc.pastTransform_Temp;
+            }
+            pc.ChangeState(pc.StateReset);
         }
-        else if (pc.resetNum % 2 != 0)
-        {
-            pc.pastTransform_2.Add(pc.transform);
-        }
+    }
 
-        if(pc.pastTransform_1.Count > 0 && pc.resetNum > 0)
+    private void MovePastBots(PlayerControll pc)
+    {
+        if (pc.pastTransform_1.Count > 0 && pc.resetNum > 0)
         {
             int position = Mathf.RoundToInt((60 - pc.countDown) * (pc.pastTransform_1.Count / 60));
             if (position > pc.pastTransform_1.Count)
                 position = pc.pastTransform_1.Count - 1;
-            pc.pastPlayer_1.transform.position = pc.pastTransform_1[position].position;
+            pc.pastPlayer_1.transform.position = pc.pastTransform_1[position];
         }
-
-        if (pc.countDown <= 0)
+        if (pc.pastTransform_2.Count > 0 && pc.resetNum > 0)
         {
-            if (pc.resetNum % 2 != 0 && pc.resetNum >= 1)
-            {
-                pc.pastTransform_1.Clear();
-            }
-            else if (pc.resetNum % 2 == 0 && pc.resetNum > 1)
-            {
-                pc.pastTransform_2.Clear();
-            }
-            pc.ChangeState(pc.StateReset);
+            int position = Mathf.RoundToInt((60 - pc.countDown) * (pc.pastTransform_2.Count / 60));
+            if (position > pc.pastTransform_2.Count)
+                position = pc.pastTransform_2.Count - 1;
+            pc.pastPlayer_2.transform.position = pc.pastTransform_2[position];
         }
     }
 }

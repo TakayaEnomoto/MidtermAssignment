@@ -27,8 +27,13 @@ public class CameraMovingResetState : CameraMoveBase
         t += Time.deltaTime * 2f;
         if (t > 1)
         {
+            pc.pastTransform_Temp = new List<Vector3>();
             t = 1;
             pc.ChangeState(pc.StateIdle);
         }
+    }
+    public override void LastUpdate(PlayerControll pc)
+    {
+
     }
 }

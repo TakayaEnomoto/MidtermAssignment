@@ -7,10 +7,9 @@ public class PlayerControll : MonoBehaviour
 {
     public GameObject pastPlayer_1;
     public GameObject pastPlayer_2;
-    public List<Transform> pastTransform_1;
-    public List<Transform> pastTransform_2;
-    public Transform[] pastTransform_array;
-    public List<Transform> pastTransform_Temp;
+    public List<Vector3> pastTransform_1;
+    public List<Vector3> pastTransform_2;
+    public List<Vector3> pastTransform_Temp;
     public float countDown;
     public int resetNum;
     [SerializeField]
@@ -84,6 +83,7 @@ public class PlayerControll : MonoBehaviour
     }
     void Start()
     {
+        pastTransform_Temp = new List<Vector3>();
         countDown = 60f;
         timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
         button = GameObject.Find("Button(Square)");
@@ -93,7 +93,12 @@ public class PlayerControll : MonoBehaviour
     void Update()
     {
         currentState.Update(this);
+
         timerText.text = Mathf.RoundToInt(countDown).ToString();
+    }
+    private void LateUpdate()
+    {
+        currentState.LastUpdate(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

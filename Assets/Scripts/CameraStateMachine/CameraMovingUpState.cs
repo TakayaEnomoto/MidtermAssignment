@@ -29,4 +29,8 @@ public class CameraMovingUpState : CameraMoveBase
             pc.ChangeState(pc.StateIdle);
         }
     }
+    public override void LastUpdate(PlayerControll pc)
+    {
+
+    }
 }
