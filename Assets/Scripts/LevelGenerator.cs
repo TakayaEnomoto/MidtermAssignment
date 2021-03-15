@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//This level generator is credit to https://www.youtube.com/watch?v=B_Xp9pt8nRY
 public class LevelGenerator : MonoBehaviour
 {
     public Texture2D map;
