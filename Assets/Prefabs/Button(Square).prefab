@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7045007905986525180}
   - component: {fileID: 7234422325270280123}
   - component: {fileID: 5902231518547799078}
+  - component: {fileID: 2389989641716038000}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Button(Square)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +105,19 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2389989641716038000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5187551644347853272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d6a4df6dde61d2469cfa0c418bea4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
