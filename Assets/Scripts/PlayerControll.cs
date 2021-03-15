@@ -5,8 +5,11 @@ using TMPro;
 
 public class PlayerControll : MonoBehaviour
 {
+    public GameObject pastPlayer_1;
+    public GameObject pastPlayer_2;
     public List<Transform> pastTransform_1;
     public List<Transform> pastTransform_2;
+    public Transform[] pastTransform_array;
     public List<Transform> pastTransform_Temp;
     public float countDown;
     public int resetNum;
@@ -90,7 +93,7 @@ public class PlayerControll : MonoBehaviour
     void Update()
     {
         currentState.Update(this);
-        timerText.text = Mathf.Round(countDown).ToString();
+        timerText.text = Mathf.RoundToInt(countDown).ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
