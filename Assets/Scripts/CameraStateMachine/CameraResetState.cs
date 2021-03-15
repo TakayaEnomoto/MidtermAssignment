@@ -17,6 +17,8 @@ public class CameraMovingResetState : CameraMoveBase
     public override void LeaveState(PlayerControll pc)
     {
         pc.transform.position = new Vector3(end.x, end.y, 0);
+        pc.resetNum += 1;
+        pc.countDown = 60;
     }
 
     public override void Update(PlayerControll pc)

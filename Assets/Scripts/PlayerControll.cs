@@ -5,7 +5,11 @@ using TMPro;
 
 public class PlayerControll : MonoBehaviour
 {
+    public List<Transform> pastTransform_1;
+    public List<Transform> pastTransform_2;
+    public List<Transform> pastTransform_Temp;
     public float countDown;
+    public int resetNum;
     [SerializeField]
     private TextMeshProUGUI timerText;
     [SerializeField]
