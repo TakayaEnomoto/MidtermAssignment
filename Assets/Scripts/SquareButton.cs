@@ -6,29 +6,32 @@ public class SquareButton : MonoBehaviour
 {
     SpriteRenderer sr;
     public bool active;
-    // Start is called before the first frame update
-    void Awake()
+    private int NumOfPlayers;
+
+    void Start()
     {
         sr = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if(NumOfPlayers != 0)
+        {
+            sr.color = Color.green;
+            active = true;
+        }
+        else if(NumOfPlayers == 0)
+        {
+            sr.color = new Color(1, 0.1462264f, 0.1462264f);
+            active = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
         {
-            sr.color = Color.green;
-            active = true;
+            NumOfPlayers += 1;
         }
 
     }
@@ -37,8 +40,7 @@ public class SquareButton : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            sr.color = new Color(1, 0.1462264f, 0.1462264f);
-            active = false;
+            NumOfPlayers -= 1;
         }
 
     }
